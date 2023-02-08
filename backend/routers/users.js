@@ -1,12 +1,12 @@
-const { User } = require('../models/user');
-const express = require('express');
+const { User } = require("../models/user");
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 //get user list
 router.get(`/`, async (req, res) => {
-  const userList = await User.find().select('-passwordHash');
+  const userList = await User.find().select("-passwordHash");
 
   if (!userList) {
     res.status(500).json({ success: false });
@@ -16,7 +16,7 @@ router.get(`/`, async (req, res) => {
 
 //get a user by Id
 router.get(`/:id`, async (req, res) => {
-  const user = await User.findById(req.params.id).select('-passwordHash');
+  const user = await User.findById(req.params.id).select("-passwordHash");
 
   if (!user) {
     res.status(500).json({ success: false });
@@ -25,7 +25,7 @@ router.get(`/:id`, async (req, res) => {
 });
 
 //create a user by admin
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   let user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -40,16 +40,16 @@ router.post('/', async (req, res) => {
   });
   user = await user.save();
 
-  if (!user) return res.status(400).send('the user cannot be created');
+  if (!user) return res.status(400).send("the user cannot be created");
   res.send(user);
 });
 
 //login to get authorization token
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
   const secret = process.env.secret;
   if (!user) {
-    return res.status(400).send('User was not found');
+    return res.status(400).send("User was not found");
   }
   if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
     const token = jwt.sign(
@@ -59,23 +59,23 @@ router.post('/login', async (req, res) => {
       },
       secret,
       {
-        expiresIn: '1d',
+        expiresIn: "1d",
       }
     );
     res
       .status(200)
       .send({ user: user.email, isAdmin: user.isAdmin, token: token });
   } else {
-    res.status(400).send('Password is wrong');
+    res.status(400).send("Password is wrong");
   }
 });
 
 //all users to self-register
-router.post('/register', async (req, res) => {
+router.post("/register", async (req, res) => {
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.password, 10),
+    passwordHash: bcrypt.hashSync(req.body.password),
     phone: req.body.phone,
     street: req.body.street,
     flat: req.body.flat,
@@ -86,22 +86,22 @@ router.post('/register', async (req, res) => {
   });
   user = await user.save();
 
-  if (!user) return res.status(400).send('the user cannot be created');
+  if (!user) return res.status(400).send("the user cannot be created");
   res.send(user);
 });
 
 //delete a user
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   User.findByIdAndRemove(req.params.id)
     .then((user) => {
       if (user) {
         return res
           .status(200)
-          .json({ success: true, message: 'the user has been deleted' });
+          .json({ success: true, message: "the user has been deleted" });
       } else {
         return res
           .status(404)
-          .json({ success: false, message: 'user not found' });
+          .json({ success: false, message: "user not found" });
       }
     })
     .catch((err) => {
