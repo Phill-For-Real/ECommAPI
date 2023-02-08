@@ -75,7 +75,7 @@ router.post("/register", async (req, res) => {
   let user = new User({
     name: req.body.name,
     email: req.body.email,
-    passwordHash: bcrypt.hashSync(req.body.password),
+    passwordHash: bcrypt.hashSync(req.body.password, "ten"),
     phone: req.body.phone,
     street: req.body.street,
     flat: req.body.flat,
