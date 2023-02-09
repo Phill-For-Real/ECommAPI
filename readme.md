@@ -14,10 +14,10 @@ This can be setup on Heroku using a private space and MongoDB.
 - heroku/nodejs
 
 4. Change the Config Vars in the settings
-   -API_URL = /api/v1
-   -CONNECTION_STRING = MongoDB Connection String
-   -DB_NAME = MongoDB Name
-   -PORT = 3000
-   -PROJECT_PATH = backend
-   -secret = somesecretyouwanttouse
+   - API_URL = /api/v1
+   - CONNECTION_STRING = MongoDB Connection String
+   - DB_NAME = MongoDB Name
+   - PORT = 3000
+   - PROJECT_PATH = backend
+   - secret = somesecretyouwanttouse
 5. Go to your private space network settings and add Space Outbound IPs to Mongo DB under Network Access
