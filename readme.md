@@ -10,8 +10,8 @@ This can be setup on Heroku using a private space and MongoDB.
 2. Deploy to Heroku in your chosen method
 3. Add some buildpacks
 
-- https://github.com/timanovsky/subdir-heroku-buildpack.git
-- heroku/nodejs
+   - https://github.com/timanovsky/subdir-heroku-buildpack.git
+   - heroku/nodejs
 
 4. Change the Config Vars in the settings
    - API_URL = /api/v1
