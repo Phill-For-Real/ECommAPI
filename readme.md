@@ -1,6 +1,10 @@
 # Application
 
-This is my first attempt at a NodeJS application
+This is my first attempt at a NodeJS application backend application. It is a simple EcomAPI that I built from taking a course online. All code has commments to help you see what each API is doing.
+
+That data model is simple with 5 tables of data representing users, products, orders, order items, and categories for each product.
+
+The routers are mimiced but there is no JS file for order items.
 
 # Setup
 
@@ -19,3 +23,7 @@ This can be setup on Heroku using a private space and MongoDB.
    - PROJECT_PATH = backend
    - secret = somesecretyouwanttouse
 5. Go to your private space network settings and add Space Outbound IPs to Mongo DB under Network Access
+
+# Testing
+
+This can be tested with Postman or any other service that can hit these endpoints.
